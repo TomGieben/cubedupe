@@ -59,6 +59,10 @@ class User extends Authenticatable
     public function createCharacter(): bool {
         try {
             $this->username = auth()->user()->name;
+            $texture = "";
+            $selectedItem = NULL;
+            $inventory = [];
+            $hp = 10;
 
             return true;
         } catch (\Throwable $th) {
