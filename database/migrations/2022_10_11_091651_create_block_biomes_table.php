@@ -3,8 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Block;
+use App\Models\Biome;
 
-return new class extends Migration
+class CreateBlockBiomesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +15,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create('block_biomes', function (Blueprint $table) {
+            $table->foreignIdFor(Block::class);
+            $table->foreignIdFor(Biome::class);
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('block_biomes');
     }
-};
+}

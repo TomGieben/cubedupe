@@ -3,8 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Block;
+use App\Models\Item;
 
-return new class extends Migration
+class CreateBlockItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +15,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create('block_items', function (Blueprint $table) {
+            $table->foreignIdFor(Block::class);
+            $table->foreignIdFor(Item::class);
+            $table->integer('hp')->default(100);
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('block_items');
     }
-};
+}
