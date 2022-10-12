@@ -48,9 +48,8 @@ class Block extends Model
                 data-block="'. $this->slug .'"
                 data-damage="'. $this->damage .'"
                 data-hp="'. $this->hp .'"
-                ' . (config('app.dev') ? 'title=" ' . $this->slug . ' "' : '') . '
-                >
-            </div>
+                ' . (config('app.dev') ? 'title="' . $this->slug . '"' : '') . '
+            ></div>
         ';
 
         return new HtmlString($block);
@@ -70,5 +69,31 @@ class Block extends Model
         }
 
         return $style;
+    }
+
+    public static function airAttributes(): string {
+        $block = new Block();
+
+        //temporarily, until there is a grid system.
+            $block->addStyle('float', 'left');
+        //
+
+        $block->addStyle('width', $block->width, $block->unit);
+        $block->addStyle('height', $block->height, $block->unit);
+        $block->addStyle('background-color', 'transparent');
+
+        $block = '
+            style="'. $block->renderStyle() .'" 
+            data-block="air"
+            ' . (config('app.dev') ? 'title="air"' : '') . '
+        ';
+
+        return $block;
+    }
+
+    public static function getBlock(string $slug): Block {
+        return Block::query()
+            ->where('slug', $slug)
+            ->first();
     }
 }

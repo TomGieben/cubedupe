@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
+use App\Models\World;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,6 +29,7 @@ class HomeController extends Controller
 
         return view('home', [
             'blocks' => $blocks,
+            'world' => World::first(),
         ]);
     }
 }
