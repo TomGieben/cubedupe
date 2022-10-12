@@ -27,7 +27,7 @@ class Block extends Model
     public function render(): HtmlString {
         $texture = ($this->texture ? $this->texture : asset('img/test_texture.png'));
 
-        //temporarily, until there is a grid system
+        //temporarily, until there is a grid system.
             $this->addStyle('float', 'left');
         //
 
