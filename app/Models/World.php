@@ -66,9 +66,16 @@ class World extends Model
             }
 
             //negative
-            for ($row=0; $row <= $world->negativeY; $row++) { 
+            for ($row=1; $row <= $world->negativeY; $row++) { 
                 for ($col=1; $col <= $world->positiveX; $col++) { 
-                    $html .= Block::setAttributes($blocks['dirt'], $x, $y);
+                    $x = $col;
+                    $y = -(-1 * abs($world->negativeY - $row) + $world->negativeY);
+
+                    if($y > -10) {
+                        $html .= Block::setAttributes($blocks['dirt'], $x, $y);
+                    } else {
+                        $html .= Block::setAttributes($blocks['stone'], $x, $y);
+                    }
                 }
             }
 
