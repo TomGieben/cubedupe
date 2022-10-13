@@ -33,7 +33,7 @@ class World extends Model
 
         $world->user_id = auth()->user()->id ?? 1;
         $world->name = 'New world';
-        $world->slug = Str::slug($world->name . $world->id);
+        $world->slug = Str::slug($world->name);
         $world->html = $html;
         $world->save();
 
