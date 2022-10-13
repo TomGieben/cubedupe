@@ -22,6 +22,7 @@ class Block extends Model
     private int $height = 20;
     private string $unit = 'px';
     private string $defaultColor = '#EDEDED';
+    private bool $showTextures = false;
     private array $style = [];
 
     public function render(): HtmlString {
@@ -36,10 +37,12 @@ class Block extends Model
         $this->addStyle('background-color', $this->color ?? $this->defaultColor);
 
         if(config('app.dev') || $this->texture) {
-            $this->addStyle('background-image', 'url(\'' . $texture . '\')');
-            $this->addStyle('background-repeat', 'no-repeat');
-            $this->addStyle('background-size', 'cover');
-            $this->addStyle('object-fit', 'cover');
+            if($this->showTextures) {
+                $this->addStyle('background-image', 'url(\'' . $texture . '\')');
+                $this->addStyle('background-repeat', 'no-repeat');
+                $this->addStyle('background-size', 'cover');
+                $this->addStyle('object-fit', 'cover');
+            }
         } 
 
         $block = '
@@ -91,9 +94,26 @@ class Block extends Model
         return $block;
     }
 
+    public static function setAttributes(string $html, int $x, int $y): HtmlString {
+        $attributes = '
+            data-grid-position-y="'. $y .'"
+            data-grid-position-x="'. $x .'"
+        >';
+
+        $html = preg_replace('/(<div\b[^><]*)>/i', '$1 '. $attributes .'', $html);
+
+        return new HtmlString($html);
+    }
+
     public static function getBlock(string $slug): Block {
         return Block::query()
             ->where('slug', $slug)
             ->first();
+    }
+
+    public static function getVar(string $var) {
+        $block = new Block();
+
+        return $block->$var;
     }
 }

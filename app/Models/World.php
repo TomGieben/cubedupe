@@ -18,13 +18,12 @@ class World extends Model
         'html',
     ];
 
-    private int $positiveY = 10;
-    private int $negativeY = 10;
-    private int $positiveX = 25;
-    private array $blocks = [];
+    private int $positiveY = 50;
+    private int $negativeY = 50;
+    private int $positiveX = 100;
 
     public function render(): HtmlString {
-        return $this->html;
+        return new HtmlString($this->html);
     } 
 
     public static function new(): World {
@@ -32,7 +31,7 @@ class World extends Model
 
         $world = new World();
 
-        $world->user_id = auth()->user()->id;
+        $world->user_id = auth()->user()->id ?? 1;
         $world->name = 'New world';
         $world->slug = Str::slug($world->name . $world->id);
         $world->html = $html;
@@ -43,39 +42,33 @@ class World extends Model
 
     private static function empty(): HtmlString {
         $world = new World();
-        $airAttributes = Block::airAttributes();
-        $world->getAllBlocks();
+        $containerWidth = $world->positiveX * Block::getVar('width');
+        $blocks = $world->getAllBlocks();
 
-        $html = '<div id="container" style="background-color: #6ad2fd;">';
+        $html = '<div id="container" style="width:' . $containerWidth . 'px;">';
 
             //positive
-            for ($row=1; $row <= $world->positiveY; $row++) { 
+            for ($row=0; $row <= $world->positiveY; $row++) { 
                 for ($col=1; $col <= $world->positiveX; $col++) { 
-                    if($row = 1) {
-                        $html .= $world->blocks['grass'];
+                    $x = $col;
+                    $y = $world->positiveY - $row;
+
+                    if($y == 0) {
+                        $html .= Block::setAttributes($blocks['grass'], $x, $y);
                     } else {
-                        $html .= '
-                            <div
-                            data-grid-position-y="'. ($world->positiveY - $row) .'"
-                            data-grid-position-x="'. $col .'"
-                            '. $airAttributes .'
-                            ></div>
-                        ';
+                        if($y == $world->positiveY && $x < count($blocks) && config('app.dev')) {
+                            $html .= Block::setAttributes(array_values(array_slice($blocks, $x, 1))[0], $x, $y);
+                        } else {
+                            $html .= Block::setAttributes($blocks['air'], $x, $y);
+                        }
                     }
                 }
             }
 
             //negative
-            for ($row=1; $row <= $world->negativeY; $row++) { 
+            for ($row=0; $row <= $world->negativeY; $row++) { 
                 for ($col=1; $col <= $world->positiveX; $col++) { 
-                    $html .= $world->blocks['dirt'];
-                    // $html .= '
-                    //     <div
-                    //     data-grid-position-y="-'. $row .'";
-                    //     data-grid-position-x="'. $col .'";
-                    //     '. $airAttributes .'
-                    //     ></div>
-                    // ';
+                    $html .= Block::setAttributes($blocks['dirt'], $x, $y);
                 }
             }
 
@@ -86,11 +79,12 @@ class World extends Model
 
     public function getAllBlocks(): array {
         $blocks = Block::all();
+        $array = [];
 
         foreach($blocks as $block) {
-            $this->blocks[$block->slug] = $block->render();
+            $array[$block->slug] = $block->render();
         }   
 
-        return $this->blocks;
+        return $array;
     }
 }

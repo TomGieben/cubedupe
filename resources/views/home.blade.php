@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mt-4">
+<div class="mt-1">
     {{ $world->render() }}
-    {{-- @foreach ($blocks as $block)
-        {{ $block->render() }}
-    @endforeach --}}
 </div>
 @endsection

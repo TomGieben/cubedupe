@@ -3,6 +3,13 @@
 
 return [
     [
+        'name' => 'Air',
+        'color' => '#6ad2fd',
+        'texture' => null,
+        'damage' => 0,
+        'hp' => 0
+    ],
+    [
         'name' => 'Dirt',
         'color' => '#796015',
         'texture' => null,
