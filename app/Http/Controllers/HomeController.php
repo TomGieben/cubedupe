@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Block;
+use App\Models\World;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,8 +27,11 @@ class HomeController extends Controller
     {
         $blocks = Block::all();
 
+        $world = auth()->user()->worlds()->latest()->first();
+
         return view('home', [
             'blocks' => $blocks,
+            'world' => $world,
         ]);
     }
 }
