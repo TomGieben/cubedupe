@@ -70,7 +70,7 @@ use App\Models\Block;
             block: 'center',
             inline: 'center'
         });
-    }
+    
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
