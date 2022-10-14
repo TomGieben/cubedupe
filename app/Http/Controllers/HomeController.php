@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-=======
 use App\Models\Block;
 use App\Models\World;
->>>>>>> 77b848ea9113eda578673a81d2df7ee5e88d0352
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,9 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        return view('home');
-=======
         $blocks = Block::all();
 
         $world = auth()->user()->worlds()->latest()->first();
@@ -39,6 +33,5 @@ class HomeController extends Controller
             'blocks' => $blocks,
             'world' => $world,
         ]);
->>>>>>> 77b848ea9113eda578673a81d2df7ee5e88d0352
     }
 }
