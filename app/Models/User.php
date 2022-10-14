@@ -59,7 +59,9 @@ class User extends Authenticatable
     public function createCharacter(): bool {
         try {
             $this->username = auth()->user()->name;
-            $texture = "";
+            $texture = '<div class="image-wrapper">
+                            <img src="' . public_path('img/testchar.png') . '" alt="image">
+                        </div>';
             $selectedItem = NULL;
             $inventory = [];
             $hp = 10;
