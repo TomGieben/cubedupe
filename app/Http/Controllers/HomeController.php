@@ -23,9 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd(
-            auth()->user()->renderCharacter()
-        );
+            echo auth()->user()->renderCharacter();
         return view('home');
     }
 }

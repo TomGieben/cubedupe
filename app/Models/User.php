@@ -50,26 +50,24 @@ class User extends Authenticatable
     public int $hp;
 
     public function renderCharacter(string $html = ''): HtmlString {
-
-        $html .= "";
-
+        if(self::createCharacter())
+        {
+            $html .= auth()->user()->texture;
+        }else
+        {
+            $html .= '';
+        }
         return new HtmlString($html);
     }
 
-    public function createCharacter(): bool {
-        try {
-            $this->username = auth()->user()->name;
-            $texture = '<div class="image-wrapper">
-                            <img src="' . public_path('img/testchar.png') . '" alt="image">
-                        </div>';
-            $selectedItem = NULL;
-            $inventory = [];
-            $hp = 10;
+    public static function createCharacter(): bool {
+        auth()->user()->username = auth()->user()->name;
+        auth()->user()->texture = '<div ><img src="img/testchar.png" alt="image" style="width: 60; height: 80;"></div>';
+        auth()->user()->selectedItem = '';
+        auth()->user()->inventory = [];
+        auth()->user()->hp = 10;
 
-            return true;
-        } catch (\Throwable $th) {
-            return false;
-        }
+        return true;
     }
 
     public function resetCharacter(): bool {
