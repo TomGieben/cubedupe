@@ -47,6 +47,11 @@ use App\Models\Block;
             });
         }
 
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         function moveLeft() {
             objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
             updatePOV()
@@ -63,35 +68,8 @@ use App\Models\Block;
         function moveDown() {
             objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
             updatePOV()
-        }
+        }    
 
-        objImage.scrollIntoView({
-            behavior: 'auto',
-            block: 'center',
-            inline: 'center'
-        });
-    
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    function moveLeft() {
-        objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
-    }
-
-    function moveUp() {
-        objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
-        sleep(500).then(() => {
-            objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px";
-        });
-    }
-
-    function moveRight() {
-        objImage.style.left = parseInt(objImage.style.left) + blockWidth + "px";
-    }
-
-    function moveDown() {
-        objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
-    }
+  
 </script>
