@@ -20,6 +20,7 @@ class Block extends Model
 
     private int $width = 20;
     private int $height = 20;
+    private int $zIndex = 1;
     private string $unit = 'px';
     private string $defaultColor = '#EDEDED';
     private bool $showTextures = false;
@@ -32,6 +33,7 @@ class Block extends Model
             $this->addStyle('float', 'left');
         //
 
+        $this->addStyle('z-index', $this->zIndex);
         $this->addStyle('width', $this->width, $this->unit);
         $this->addStyle('height', $this->height, $this->unit);
         $this->addStyle('background-color', $this->color ?? $this->defaultColor);

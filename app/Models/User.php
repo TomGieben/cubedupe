@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public static function createCharacter(): bool {
         auth()->user()->username = auth()->user()->name;
-        auth()->user()->texture = '<div ><img src="img/testchar.png" alt="image" style="width: 60; height: 80;"></div>';
+        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar.png" alt="image" style="width: 60px; height: 80px; position: relative; left: 0px; top: 0px; z-index: 9999;"></div>';
         auth()->user()->selectedItem = '';
         auth()->user()->inventory = [];
         auth()->user()->hp = 10;

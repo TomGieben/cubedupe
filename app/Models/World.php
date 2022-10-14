@@ -46,6 +46,8 @@ class World extends Model
         $blocks = $world->getAllBlocks();
 
         $html = '<div id="container" style="width:' . $containerWidth . 'px;">';
+        
+        $html .= auth()->user()->renderCharacter();
 
             //positive
             for ($row=0; $row <= $world->positiveY; $row++) { 

@@ -25,16 +25,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-            echo auth()->user()->renderCharacter();
-            die;
 
         $blocks = Block::all();
 
+        World::new();
+        
         $world = auth()->user()->worlds()->latest()->first();
 
         return view('home', [
             // 'blocks' => $blocks,
-            // 'world' => $world,
+            'world' => $world,
         ]);
     }
 }
