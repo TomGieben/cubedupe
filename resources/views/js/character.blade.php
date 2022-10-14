@@ -1,3 +1,8 @@
+@php
+
+use App\Models\Block;
+
+@endphp
 <script>
         document.getElementById("body").addEventListener("keydown", check);
 
@@ -29,9 +34,10 @@
                 }
           }
 
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
+
+    var lastTime = 0;
+    var blockWidth = {{ Block::getVar('width') }}
+    var blockHeight = {{ Block::getVar('height') }}
 
         function updatePOV() {
             objImage.scrollIntoView({
@@ -42,21 +48,50 @@
         }
 
         function moveLeft() {
-            objImage.style.left = parseInt(objImage.style.left) - 20 + "px";
+            objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
             updatePOV()
         }
         function moveUp() {
-            objImage.style.top = parseInt(objImage.style.top) - 40 + "px";
+            objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
             sleep(300).then(() => { objImage.style.top = parseInt(objImage.style.top) + 40 + "px"; });
             updatePOV()
         }
         function moveRight() {
-            objImage.style.left = parseInt(objImage.style.left) + 20 + "px";
+            objImage.style.left = parseInt(objImage.style.left) + blockWidth + "px";
             updatePOV()
         }
         function moveDown() {
-            objImage.style.top = parseInt(objImage.style.top) + 20 + "px";
+            objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
             updatePOV()
         }
 
+        objImage.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+            inline: 'center'
+        });
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function moveLeft() {
+        objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
+    }
+
+    function moveUp() {
+        objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
+        sleep(500).then(() => {
+            objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px";
+        });
+    }
+
+    function moveRight() {
+        objImage.style.left = parseInt(objImage.style.left) + blockWidth + "px";
+    }
+
+    function moveDown() {
+        objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
+    }
 </script>
