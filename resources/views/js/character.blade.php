@@ -71,5 +71,5 @@ use App\Models\Block;
         }    
 
 
-  
+        updatePOV();
 </script>
