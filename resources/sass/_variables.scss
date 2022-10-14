@@ -1,7 +1,19 @@
-// Body
-$body-bg: #f8fafc;
-
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+// Colors
+$primary:         #003366 !default;
+$secondary:       #626262 !default;
+$success:         #5cb85c !default;
+$info:            #5bc0de !default;
+$warning:         #f0ad4e !default;
+$danger:          #d9534f !default;
+
+//game background color
+$air-day:             #6ad2fd !default;
+$air-night:           #214350 !default;
+$sun:                 #f0e65f !default;
+$moon:                #d0d0d0 !default;
+
