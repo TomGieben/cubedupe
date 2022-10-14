@@ -28,16 +28,16 @@
           }
 
         function moveLeft() {
-            objImage.style.left = parseInt(objImage.style.left) - 5 + "px";
+            objImage.style.left = parseInt(objImage.style.left) - 20 + "px";
         }
         function moveUp() {
-            objImage.style.top = parseInt(objImage.style.top) - 5 + "px";
+            objImage.style.top = parseInt(objImage.style.top) - 20 + "px";
         }
         function moveRight() {
-            objImage.style.left = parseInt(objImage.style.left) + 5 + "px";
+            objImage.style.left = parseInt(objImage.style.left) + 20 + "px";
         }
         function moveDown() {
-            objImage.style.top = parseInt(objImage.style.top) + 5 + "px";
+            objImage.style.top = parseInt(objImage.style.top) + 20 + "px";
         }
 
 </script>
