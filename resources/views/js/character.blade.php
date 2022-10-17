@@ -70,6 +70,12 @@ use App\Models\Block;
             updatePOV()
         }    
 
-
+        window.addEventListener('load', function () {
+            objImage.scrollIntoView({
+                behavior: 'auto',
+                block: 'center',
+                inline: 'center'
+            });
+        })
   
 </script>

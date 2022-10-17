@@ -47,6 +47,8 @@ class World extends Model
 
         $html = '<div id="container" style="width:' . $containerWidth . 'px;">';
 
+        $html .= auth()->user()->renderCharacter();
+
             //positive
             for ($row=0; $row <= $world->positiveY; $row++) { 
                 for ($col=1; $col <= $world->positiveX; $col++) { 
@@ -54,9 +56,6 @@ class World extends Model
                     $y = $world->positiveY - $row;
 
                     if($y == 0) {
-                        if($x == 1) {
-                            $html .= auth()->user()->renderCharacter();
-                        }
                         $html .= Block::setAttributes($blocks['grass'], $x, $y);
                     } else {
                         if($y == $world->positiveY && $x < count($blocks) && config('app.dev')) {
