@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="mt-1">
-    {{ $world->render() }}
+    <div id="save">
+        {{ $world->render() }}
+    </div>
+    @include('js/character')
 </div>
 @endsection
