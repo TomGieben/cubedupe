@@ -25,13 +25,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $blocks = Block::all();
-
         $world = auth()->user()->worlds()->latest()->first();
 
         return view('home', [
-            'blocks' => $blocks,
+            // 'blocks' => $blocks,
             'world' => $world,
         ]);
+    }
+
+    public function save(Request $request) {
+        $world = auth()->user()->worlds()->latest()->first();
+
+        $world->update([
+            'html' => $request->html,
+        ]);
+
+        return true;
     }
 }

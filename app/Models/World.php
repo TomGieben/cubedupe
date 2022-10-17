@@ -25,6 +25,12 @@ class World extends Model
     public function render(): HtmlString {
         return new HtmlString($this->html);
     }
+    
+    public static function getVar(string $var) {
+        $world = new World();
+    
+        return $world->$var;
+    }
 
     public static function new(array $attributes = []): World {
         $html = self::empty();
@@ -46,6 +52,8 @@ class World extends Model
         $blocks = $world->getAllBlocks();
 
         $html = '<div id="container" style="width:' . $containerWidth . 'px;">';
+
+        $html .= auth()->user()->renderCharacter();
 
             //positive
             for ($row=0; $row <= $world->positiveY; $row++) {
