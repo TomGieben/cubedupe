@@ -21,6 +21,9 @@
 </head>
 <body>
     <div id="app">
+        @if (Route::is('welcome'))
+
+        @else
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -74,8 +77,8 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        @endif
+        <main>
             @yield('content')
         </main>
     </div>

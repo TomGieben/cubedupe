@@ -26,14 +26,14 @@ class World extends Model
         return new HtmlString($this->html);
     }
 
-    public static function new(): World {
+    public static function new(array $attributes = []): World {
         $html = self::empty();
 
         $world = new World();
 
         $world->user_id = auth()->user()->id ?? 1;
-        $world->name = 'New world';
-        $world->slug = Str::slug($world->name);
+        $world->name = $attributes['name'];
+        $world->slug = Str::slug($attributes['name']);
         $world->html = $html;
         $world->save();
 
