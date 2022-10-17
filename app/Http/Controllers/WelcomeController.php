@@ -12,15 +12,4 @@ class WelcomeController extends Controller
             'hasworld' => World::where('user_id', auth()->user()->id)->exists()
         ]);
     }
-    public function store(Request $request){
-        $request->validate([
-            'name' => 'required|max:30',
-        ]);
-
-        World::new([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('home');
-    }
 }
