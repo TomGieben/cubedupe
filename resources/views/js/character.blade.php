@@ -10,8 +10,6 @@ use App\Models\World;
 
         objImage = document.getElementById("imagechar");
 
-        var lastTimeL = 0;
-        var lastTimeR = 0;
         var lastTimeS = 0;
 
          function check(e) {      
@@ -19,23 +17,9 @@ use App\Models\World;
             var key_code = e.which || e.keyCode;
                 switch (key_code) {
                 case 37: //left arrow key
-                    var nowL = new Date().getTime(); // Time in milliseconds
-                    if (nowL - lastTimeL < 100) {
-                        return;
-                    } else {
-                        lastTimeL = nowL;
-                    }
-
                     moveLeft();
                     break;
                 case 39: //right arrow key
-                    var nowR = new Date().getTime(); // Time in milliseconds
-                    if (nowR - lastTimeR < 100) {
-                        return;
-                    } else {
-                        lastTimeR = nowR;
-                    }
-
                     moveRight();
                     break;
                 case 40: //down arrow key
