@@ -25,11 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $blocks = Block::all();
-
-        World::new();
-
         $world = auth()->user()->worlds()->latest()->first();
 
         return view('home', [
