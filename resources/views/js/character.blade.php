@@ -62,25 +62,28 @@ use App\Models\User;
             var charPosY = objImage.getAttribute("data-grid-position-y");
             var blockPosX = charPosX;
             var blockPosY = (charPosY - 1);
+            var block;
+            
 
             var yElements = document.querySelectorAll('[data-grid-position-x="'+blockPosX+'"]');
             yElements.forEach(element => {
                 if(element.getAttribute("data-grid-position-y") == blockPosY)
                 {
-                    console.log(element);
+                    block = element.getAttribute("data-block");
+
+                    if(block == "air"){
+                        changePos("D");
+                        objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
+                        updatePOV();
+                    }
+                    return block;
                 }
             });
-
-            // if (charHeight > blockPosY && charPosY < blockHeight && charWidth > blockPosX && charPosX < blockWidth) {
-            //     if(!air){
-
-            //     }
-            // }
+            
         }
 
         function changePos(dir)
         {
-            checkBlock();
 
             if(dir == "L")
             {
@@ -105,6 +108,7 @@ use App\Models\User;
 
                 objImage.setAttribute("data-grid-position-y", charPosY);
             }
+            checkBlock();
         }
 
         function moveLeft() {
@@ -125,13 +129,17 @@ use App\Models\User;
             updatePOV()
         }
         function moveDown() {
-            changePos("D");
+            if(checkBlock() != "air"){
+                changePos("D");
 
-            objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
-            updatePOV()
+                objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
+                updatePOV()
+            }
         }    
 
         window.addEventListener('load', function () {
+            checkBlock();
+
             objImage.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',
