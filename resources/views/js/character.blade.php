@@ -12,9 +12,9 @@ use App\Models\World;
 
         var lastTimeS = 0;
 
-         function check(e) {      
-
-            var key_code = e.which || e.keyCode;
+        //checks if a button is pressed
+        function check(e) {      
+        var key_code = e.which || e.keyCode;
                 switch (key_code) {
                 case 37: //left arrow key
                     moveLeft();
@@ -38,17 +38,18 @@ use App\Models\World;
           }
 
 
-    var lastTime = 0;
-    var blockWidth = {{ Block::getVar('width') }}
-    var blockHeight = {{ Block::getVar('height') }}
+        var lastTime = 0;
+        var blockWidth = {{ Block::getVar('width') }}
+        var blockHeight = {{ Block::getVar('height') }}
 
-    var charWidth = {{ User::getVar('width') }}
-    var charHeight = {{ User::getVar('height') }}
+        var charWidth = {{ User::getVar('width') }}
+        var charHeight = {{ User::getVar('height') }}
 
-    var worldPositiveY = {{ World::getVar('positiveY') }}
-    var worldNegativeY = {{ World::getVar('negativeY') }}
-    var worldPositiveX = {{ World::getVar('positiveX') }}
+        var worldPositiveY = {{ World::getVar('positiveY') }}
+        var worldNegativeY = {{ World::getVar('negativeY') }}
+        var worldPositiveX = {{ World::getVar('positiveX') }}
 
+        //updates the screen to the middle of the char
         function updatePOV() {
             objImage.scrollIntoView({
                 behavior: 'auto',
@@ -57,11 +58,12 @@ use App\Models\World;
             });
         }
 
-
+        //waits x ms untill it reads again
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
+        //checks block type under char
         function checkBlock()
         {
             var charPosX = objImage.getAttribute("data-grid-position-x");
@@ -70,7 +72,6 @@ use App\Models\World;
             var blockPosY = (charPosY - 1);
             var block;
             
-
             var yElements = document.querySelectorAll('[data-grid-position-x="'+blockPosX+'"]');
             yElements.forEach(element => {
                 if(element.getAttribute("data-grid-position-y") == blockPosY)
@@ -82,9 +83,9 @@ use App\Models\World;
                     }
                 }
             });
-            
         }
 
+        //changes attribute depending on the grid-position
         function changePos(dir)
         {
             if(dir == "L")
@@ -113,6 +114,7 @@ use App\Models\World;
             checkBlock();
         }
 
+        //moves char to the left
         function moveLeft() {
             if((objImage.getAttribute("data-grid-position-x") - 1) != 0){
                 changePos("L");
@@ -121,11 +123,15 @@ use App\Models\World;
                 updatePOV()
             }
         }
+
+        //lets the char jump 2 block high
         function moveUp() {
             objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
             sleep(300).then(() => { objImage.style.top = parseInt(objImage.style.top) + 40 + "px"; });
             updatePOV()
         }
+
+        //moves char 1 block right
         function moveRight() {
             if(objImage.getAttribute("data-grid-position-x") != worldPositiveX){
                 changePos("R");
@@ -134,6 +140,8 @@ use App\Models\World;
                 updatePOV()
             }
         }
+
+        //moves char down
         function moveDown() {
                 changePos("D");
 
@@ -141,6 +149,7 @@ use App\Models\World;
                 updatePOV()
         }    
 
+        //onload do these functions
         window.addEventListener('load', function () {
             checkBlock();
 
