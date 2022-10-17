@@ -12,7 +12,8 @@ use App\Models\World;
 
         var lastTime = 0;
 
-         function check(e) {
+         function check(e) {      
+
             var key_code = e.which || e.keyCode;
                 switch (key_code) {
                 case 37: //left arrow key
@@ -33,7 +34,7 @@ use App\Models\World;
                     }
                     moveUp();
                     break;
-                }
+                }    
           }
 
 
