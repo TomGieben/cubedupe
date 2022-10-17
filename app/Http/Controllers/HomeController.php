@@ -28,7 +28,6 @@ class HomeController extends Controller
         $world = auth()->user()->worlds()->latest()->first();
 
         return view('home', [
-            // 'blocks' => $blocks,
             'world' => $world,
         ]);
     }
