@@ -24,7 +24,7 @@ class World extends Model
 
     public function render(): HtmlString {
         return new HtmlString($this->html);
-    } 
+    }
 
     public static function new(): World {
         $html = self::empty();
@@ -48,8 +48,8 @@ class World extends Model
         $html = '<div id="container" style="width:' . $containerWidth . 'px;">';
 
             //positive
-            for ($row=0; $row <= $world->positiveY; $row++) { 
-                for ($col=1; $col <= $world->positiveX; $col++) { 
+            for ($row=0; $row <= $world->positiveY; $row++) {
+                for ($col=1; $col <= $world->positiveX; $col++) {
                     $x = $col;
                     $y = $world->positiveY - $row;
 
@@ -66,8 +66,8 @@ class World extends Model
             }
 
             //negative
-            for ($row=1; $row <= $world->negativeY; $row++) { 
-                for ($col=1; $col <= $world->positiveX; $col++) { 
+            for ($row=1; $row <= $world->negativeY; $row++) {
+                for ($col=1; $col <= $world->positiveX; $col++) {
                     $x = $col;
                     $y = -(-1 * abs($world->negativeY - $row) + $world->negativeY);
 
@@ -82,7 +82,7 @@ class World extends Model
         $html .= '</div>';
 
         return new HtmlString($html);
-    } 
+    }
 
     public function getAllBlocks(): array {
         $blocks = Block::all();
@@ -90,7 +90,7 @@ class World extends Model
 
         foreach($blocks as $block) {
             $array[$block->slug] = $block->render();
-        }   
+        }
 
         return $array;
     }

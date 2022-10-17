@@ -41,12 +41,17 @@ class MakeObject extends Command
     {
         $this->className = $this->argument('objectName');
         $fileName = $this->className . '.php';
-        $path ='app\Http\Objects\\' . $fileName;
-        
+        $dir = 'app\Objects\\';
+        $path = $dir . $fileName;
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
         if (!file_exists($path)) {
            if($file = fopen($path, "w")) {
-            fwrite($file, $this->getContent());
-            fclose($file);
+                fwrite($file, $this->getContent());
+                fclose($file);
            } else {
                 $this->log('Unable to open ' . $fileName);
            }
@@ -63,9 +68,9 @@ class MakeObject extends Command
 
     private function getContent(): string {
 
-$text = 
+$text =
 '
-<?php 
+<?php
     namespace App\Objects;
 
     use Illuminate\Support\HtmlString;
