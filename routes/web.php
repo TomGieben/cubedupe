@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WorldController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +24,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/save', [HomeController::class, 'save'])->name('save');
+    Route::post('/worlds/store', [WorldController::class, 'store'])->name('worlds.store');
 });
 

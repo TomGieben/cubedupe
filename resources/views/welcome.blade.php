@@ -30,7 +30,7 @@
             VERDERSPELEN
             <a href="{{route('home')}}">Naarwereld</a>
         @else
-        <form action="{{route('world.store')}}" method="post">
+        <form action="{{route('worlds.store')}}" method="post">
             @csrf
             <div class="form-row">
                 <input type="text" name="name" class="form-control">
