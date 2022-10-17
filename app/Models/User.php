@@ -44,12 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    private int $width = 20;
+    private int $height = 40;
     public string $username;
     public string $texture;
     public string $selectedItem;
     public array $inventory;
     public int $hp;
 
+    
     public function renderCharacter(string $html = ''): HtmlString {
         if(self::createCharacter())
         {
@@ -62,8 +65,12 @@ class User extends Authenticatable
     }
 
     public static function createCharacter(): bool {
+
+         $worldMaxY = World::getVar('positiveY');
+         $worldMaxY++;
+
         auth()->user()->username = auth()->user()->name;
-        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar.png" alt="image" style="width: 20px; height: 40px; position: relative; left: 0px; top: 0px; z-index: 9999;"></div>';
+        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar.png" alt="image" style="width: 20px; height: 40px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'"; data-grid-position-x="1"></div>';
         auth()->user()->selectedItem = '';
         auth()->user()->inventory = [];
         auth()->user()->hp = 10;
@@ -82,5 +89,11 @@ class User extends Authenticatable
     public function worlds(): HasMany
     {
         return $this->hasmany(World::class);
+    }
+
+    public static function getVar(string $var) {
+        $char = new User();
+    
+        return $char->$var;
     }
 }

@@ -1,6 +1,7 @@
 @php
 
 use App\Models\Block;
+use App\Models\User;
 
 @endphp
 <script>
@@ -39,6 +40,9 @@ use App\Models\Block;
     var blockWidth = {{ Block::getVar('width') }}
     var blockHeight = {{ Block::getVar('height') }}
 
+    var charWidth = {{ User::getVar('width') }}
+    var charHeight = {{ User::getVar('height') }}
+
         function updatePOV() {
             objImage.scrollIntoView({
                 behavior: 'auto',
@@ -52,7 +56,60 @@ use App\Models\Block;
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
+        function checkBlock()
+        {
+            var charPosX = objImage.getAttribute("data-grid-position-x");
+            var charPosY = objImage.getAttribute("data-grid-position-y");
+            var blockPosX = charPosX;
+            var blockPosY = (charPosY - 1);
+
+            var yElements = document.querySelectorAll('[data-grid-position-x="'+blockPosX+'"]');
+            yElements.forEach(element => {
+                if(element.getAttribute("data-grid-position-y") == blockPosY)
+                {
+                    console.log(element);
+                }
+            });
+
+            // if (charHeight > blockPosY && charPosY < blockHeight && charWidth > blockPosX && charPosX < blockWidth) {
+            //     if(!air){
+
+            //     }
+            // }
+        }
+
+        function changePos(dir)
+        {
+            checkBlock();
+
+            if(dir == "L")
+            {
+                var charPosX = objImage.getAttribute("data-grid-position-x");
+                charPosX = (charPosX - 1);
+
+                objImage.setAttribute("data-grid-position-x", charPosX);
+            }
+
+            if(dir == "R")
+            {
+                var charPosX = objImage.getAttribute("data-grid-position-x");
+                charPosX++;
+
+                objImage.setAttribute("data-grid-position-x", charPosX);
+            }
+
+            if(dir == "D")
+            {
+                var charPosY = objImage.getAttribute("data-grid-position-y");
+                charPosY = (charPosY - 1);
+
+                objImage.setAttribute("data-grid-position-y", charPosY);
+            }
+        }
+
         function moveLeft() {
+            changePos("L");
+
             objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
             updatePOV()
         }
@@ -62,10 +119,14 @@ use App\Models\Block;
             updatePOV()
         }
         function moveRight() {
+            changePos("R");
+
             objImage.style.left = parseInt(objImage.style.left) + blockWidth + "px";
             updatePOV()
         }
         function moveDown() {
+            changePos("D");
+
             objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
             updatePOV()
         }    

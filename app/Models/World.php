@@ -26,6 +26,12 @@ class World extends Model
         return new HtmlString($this->html);
     }
 
+    public static function getVar(string $var) {
+        $world = new World();
+    
+        return $world->$var;
+    }
+
     public static function new(): World {
         $html = self::empty();
 
