@@ -44,8 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    private int $width = 20;
-    private int $height = 40;
+    private int $width = 40;
+    private int $height = 80;
     public string $username;
     public string $texture;
     public string $selectedItem;
@@ -70,7 +70,7 @@ class User extends Authenticatable
          $worldMaxY++;
 
         auth()->user()->username = auth()->user()->name;
-        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar.png" alt="image" style="width: 20px; height: 40px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'"; data-grid-position-x="1"></div>';
+        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar2.png" alt="image" style="width: '. auth()->user()->width .'px; height: '. auth()->user()->height .'px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'"; data-grid-position-x="1"></div>';
         auth()->user()->selectedItem = '';
         auth()->user()->inventory = [];
         auth()->user()->hp = 10;
