@@ -21,5 +21,6 @@ Auth::Routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+    Route::resource('/welcome', WelcomeController::class); //beun
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
