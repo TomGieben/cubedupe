@@ -37,4 +37,14 @@ class HomeController extends Controller
             'world' => $world,
         ]);
     }
+
+    public function save(Request $request) {
+        $world = auth()->user()->worlds()->latest()->first();
+
+        $world->update([
+            'html' => $request->html,
+        ]);
+
+        return true;
+    }
 }

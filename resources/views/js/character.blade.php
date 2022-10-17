@@ -63,6 +63,19 @@ use App\Models\World;
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
+        $("#imagechar").click(function(){
+            $.ajax({
+                type:"POST",
+                url: "{{ route('save') }}",
+                data: {
+                    _token : "{{ csrf_token() }}",
+                    html : $("#save").html()
+                },
+                success: function(result){
+                    console.log(result);
+                }});
+        });
+
         //checks block type under char
         function checkBlock()
         {
