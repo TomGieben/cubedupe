@@ -2,6 +2,7 @@
 
 use App\Models\Block;
 use App\Models\User;
+use App\Models\World;
 
 @endphp
 <script>
@@ -21,7 +22,7 @@ use App\Models\User;
                     moveRight();
                     break;
                 case 40: //down arrow key
-                    moveDown();
+                    checkBlock();
                     break;
                 case 32: //space bar            
                     var now = new Date().getTime(); // Time in milliseconds
@@ -42,6 +43,10 @@ use App\Models\User;
 
     var charWidth = {{ User::getVar('width') }}
     var charHeight = {{ User::getVar('height') }}
+
+    var worldPositiveY = {{ World::getVar('positiveY') }}
+    var worldNegativeY = {{ World::getVar('negativeY') }}
+    var worldPositiveX = {{ World::getVar('positiveX') }}
 
         function updatePOV() {
             objImage.scrollIntoView({
@@ -72,11 +77,8 @@ use App\Models\User;
                     block = element.getAttribute("data-block");
 
                     if(block == "air"){
-                        changePos("D");
-                        objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
-                        updatePOV();
+                        moveDown();
                     }
-                    return block;
                 }
             });
             
@@ -84,7 +86,6 @@ use App\Models\User;
 
         function changePos(dir)
         {
-
             if(dir == "L")
             {
                 var charPosX = objImage.getAttribute("data-grid-position-x");
@@ -112,10 +113,12 @@ use App\Models\User;
         }
 
         function moveLeft() {
-            changePos("L");
+            if((objImage.getAttribute("data-grid-position-x") - 1) != 0){
+                changePos("L");
 
-            objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
-            updatePOV()
+                objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
+                updatePOV()
+            }
         }
         function moveUp() {
             objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
@@ -123,18 +126,18 @@ use App\Models\User;
             updatePOV()
         }
         function moveRight() {
-            changePos("R");
+            if(objImage.getAttribute("data-grid-position-x") != worldPositiveX){
+                changePos("R");
 
-            objImage.style.left = parseInt(objImage.style.left) + blockWidth + "px";
-            updatePOV()
+                objImage.style.left = parseInt(objImage.style.left) + blockWidth + "px";
+                updatePOV()
+            }
         }
         function moveDown() {
-            if(checkBlock() != "air"){
                 changePos("D");
 
                 objImage.style.top = parseInt(objImage.style.top) + blockHeight + "px";
                 updatePOV()
-            }
         }    
 
         window.addEventListener('load', function () {
