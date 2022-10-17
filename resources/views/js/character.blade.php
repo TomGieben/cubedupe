@@ -140,7 +140,7 @@ use App\Models\World;
         //lets the char jump 2 block high
         function moveUp() {
             objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
-            sleep(300).then(() => { objImage.style.top = parseInt(objImage.style.top) + 40 + "px"; });
+            sleep(300).then(() => { objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px"; });
             updatePOV()
         }
 
