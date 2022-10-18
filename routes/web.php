@@ -17,13 +17,13 @@ use App\Http\Controllers\WorldController;
 |
 */
 
-
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Auth::Routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-    Route::get('/game', [HomeController::class, 'index'])->name('home');
-    Route::post('/worlds/save', [HomeController::class, 'save'])->name('worlds.save');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/game', [WorldController::class, 'index'])->name('game');
+    Route::post('/worlds/update', [WorldController::class, 'update'])->name('worlds.update');
     Route::post('/worlds/store', [WorldController::class, 'store'])->name('worlds.store');
 });
 
