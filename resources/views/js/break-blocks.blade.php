@@ -8,7 +8,8 @@ use App\Models\World;
 <script>
         objImage = document.getElementById("imagechar");
 
-    function breakBlock(block){
+    function breakBlock(block) {
+        var dev = ("{{ config('app.dev') }}" ? true : false);
         var reachChar = {{ User::getVar('reach') }};
         var charPosY = objImage.getAttribute("data-grid-position-y");
         var charPosX = objImage.getAttribute("data-grid-position-x");
@@ -30,8 +31,12 @@ use App\Models\World;
                 },
                 success: function(result){
                     var blockHp = block.getAttribute("data-hp");
+                    if(dev) {
+                        blockHp = (blockHp - 10000);
+                    }else {
+                        blockHp = (blockHp - result);
+                    }
 
-                    blockHp = (blockHp - result);
                     block.setAttribute("data-hp", blockHp);
                 }});
 
@@ -39,7 +44,11 @@ use App\Models\World;
                     if(block.getAttribute("data-hp") <= 0){
                         block.setAttribute("data-block", "air");
                         block.setAttribute("data-damage", "0");
-                        block.style.backgroundColor = "#6ad2fd";
+                        if(block.getAttribute("data-grid-position-y") > -1) {
+                            block.style.backgroundColor = "#6ad2fd";
+                        }else {
+                            block.style.backgroundColor = "#736f6f";
+                        }
                         checkBlock();
                     }
                 });
