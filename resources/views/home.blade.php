@@ -67,7 +67,7 @@
     .input-box input:focus ~ span
     {
         color: rgb(106,210,253); /* switch */
-        transform: translateX(8px) translateY(-10px);
+        transform: translateX(12px) translateY(-10px);
         font-size: 1em;
         letter-spacing: 0.2em;
         padding: 0 9px;
