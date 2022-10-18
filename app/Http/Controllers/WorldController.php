@@ -7,6 +7,26 @@ use Illuminate\Http\Request;
 
 class WorldController extends Controller
 {
+    public function index()
+    {
+        $world = auth()->user()->worlds()->latest()->first();
+
+        return view('game', [
+            // 'blocks' => $blocks,
+            'world' => $world,
+        ]);
+    }
+
+    public function save(Request $request) {
+        $world = auth()->user()->worlds()->latest()->first();
+
+        $world->update([
+            'html' => $request->html,
+        ]);
+
+        return true;
+    }
+
     public function store(Request $request){
         $request->validate([
             'name' => 'required|max:30',
@@ -16,6 +36,6 @@ class WorldController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('home');
+        return redirect()->route('game');
     }
 }
