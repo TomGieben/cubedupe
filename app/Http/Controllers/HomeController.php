@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Block;
 use App\Models\World;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -28,18 +26,8 @@ class HomeController extends Controller
         $world = auth()->user()->worlds()->latest()->first() ?? abort('404');
 
         return view('home', [
-            'world' => $world,
+            'hasworld' => $world,
         ]);
-    }
-
-    public function save(Request $request) {
-        $world = auth()->user()->worlds()->latest()->first();
-
-        $world->update([
-            'html' => $request->html,
-        ]);
-
-        return true;
     }
 
     public function item(Request $request) {
