@@ -17,7 +17,7 @@ class WorldController extends Controller
         ]);
     }
 
-    public function save(Request $request) {
+    public function update(Request $request) {
         $world = auth()->user()->worlds()->latest()->first();
 
         $world->update([
