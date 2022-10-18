@@ -18,8 +18,8 @@ class Block extends Model
         'hp',
     ];
 
-    private int $width = 20;
-    private int $height = 20;
+    private int $width = 40;
+    private int $height = 40;
     private int $zIndex = 1;
     private string $unit = 'px';
     private string $defaultColor = '#EDEDED';
