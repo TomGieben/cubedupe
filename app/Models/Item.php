@@ -15,8 +15,4 @@ class Item extends Model
         'texture',
         'hp',
     ];
-
-    public static function getData(string $slug): Item {
-        return Item::where('slug', $slug)->first();
-    }
 }

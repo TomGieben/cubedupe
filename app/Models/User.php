@@ -71,8 +71,8 @@ class User extends Authenticatable
          $worldMaxY++;
 
         auth()->user()->username = auth()->user()->name;
-        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar2.png" alt="image" style="width: '. auth()->user()->width .'px; height: '. auth()->user()->height .'px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'"; data-grid-position-x="1" data-selected-item=""></div>';
-        auth()->user()->selectedItem = '';
+        auth()->user()->selectedItem = 'hand';
+        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar2.png" alt="image" style="width: '. auth()->user()->width .'px; height: '. auth()->user()->height .'px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'" data-grid-position-x="1" data-selected-item="'.auth()->user()->selectedItem.'"></div>';
         auth()->user()->inventory = [];
         auth()->user()->hp = 10;
 

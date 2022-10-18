@@ -83,8 +83,6 @@
             @endif
         </div>
     </div>
-    @include('js/character')
-    @include('js/break-blocks')
 </div>
 <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436720/particles.js"></script>
 <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1561436735/app.js"></script>

@@ -21,4 +21,9 @@ return [
         'texture' => null,
         'hp' => 40,
     ],
+    [
+        'name' => 'Hand',
+        'texture' => null,
+        'hp' => 0,
+    ],
 ];

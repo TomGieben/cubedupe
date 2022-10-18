@@ -66,7 +66,7 @@ use App\Models\World;
         $("#imagechar").click(function(){
             $.ajax({
                 type:"POST",
-                url: "{{ route('worlds.save') }}",
+                url: "{{ route('worlds.update') }}",
                 data: {
                     _token : "{{ csrf_token() }}",
                     html : $("#save").html()

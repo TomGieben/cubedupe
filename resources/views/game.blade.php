@@ -6,5 +6,6 @@
         {{ $world->render() }}
     </div>
     @include('js/character')
+    @include('js/break-blocks')
 </div>
 @endsection

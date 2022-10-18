@@ -23,14 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $world = auth()->user()->worlds()->latest()->first() ?? abort('404');
+        $world = auth()->user()->worlds()->latest()->first();
 
         return view('home', [
             'hasworld' => $world,
         ]);
-    }
-
-    public function item(Request $request) {
-        return Item::getData($request->item);
     }
 }

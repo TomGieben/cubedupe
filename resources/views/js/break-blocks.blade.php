@@ -24,24 +24,25 @@ use App\Models\World;
                 url: "{{ route('worlds.item') }}",
                 data: {
                     _token : "{{ csrf_token() }}",
+                    block : block.getAttribute("data-block"),
+                    // item : 'pickaxe'
                     item : objImage.getAttribute("data-selected-item")
                 },
                 success: function(result){
-                    console.log(result);
-                }});
-
                     var blockHp = block.getAttribute("data-hp");
 
-                    // blockHp = (blockHp - );
+                    blockHp = (blockHp - result);
                     block.setAttribute("data-hp", blockHp);
-                
+                }});
 
-                if(block.getAttribute("data-hp") <= 0){
-                    block.setAttribute("data-block", "air");
-                    block.setAttribute("data-damage", "0");
-                    block.style.backgroundColor = "#6ad2fd";
-                    checkBlock();
-                }
+                sleep(180).then(() => { 
+                    if(block.getAttribute("data-hp") <= 0){
+                        block.setAttribute("data-block", "air");
+                        block.setAttribute("data-damage", "0");
+                        block.style.backgroundColor = "#6ad2fd";
+                        checkBlock();
+                    }
+                });
             }
         }
     }
