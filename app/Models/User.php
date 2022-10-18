@@ -46,11 +46,12 @@ class User extends Authenticatable
 
     private int $width = 40;
     private int $height = 80;
+    public int $reach = 5;
+    public int $hp;
     public string $username;
     public string $texture;
     public string $selectedItem;
     public array $inventory;
-    public int $hp;
 
     
     public function renderCharacter(string $html = ''): HtmlString {
@@ -70,7 +71,7 @@ class User extends Authenticatable
          $worldMaxY++;
 
         auth()->user()->username = auth()->user()->name;
-        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar2.png" alt="image" style="width: '. auth()->user()->width .'px; height: '. auth()->user()->height .'px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'"; data-grid-position-x="1"></div>';
+        auth()->user()->texture = '<div><img id="imagechar" src="img/testchar2.png" alt="image" style="width: '. auth()->user()->width .'px; height: '. auth()->user()->height .'px; position: relative; left: 0px; top: 0px; z-index: 9999;" data-grid-position-y="'.$worldMaxY.'"; data-grid-position-x="1" data-selected-item=""></div>';
         auth()->user()->selectedItem = '';
         auth()->user()->inventory = [];
         auth()->user()->hp = 10;
