@@ -38,4 +38,10 @@ class WorldController extends Controller
 
         return redirect()->route('game');
     }
+
+    public function destroy(World $world){
+        $world->delete();
+
+        return redirect()->route('home');
+    }
 }
