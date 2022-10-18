@@ -172,9 +172,6 @@
         if ((objImage.getAttribute("data-grid-position-x") - 1) != 0) {
             changePos("L");
 
-<<<<<<< HEAD
-            objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
-=======
         //lets the char jump 2 block high
         function moveUp() {
             objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
@@ -184,7 +181,6 @@
                 // objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px";
                 checkBlock();
             });
->>>>>>> 971f96f03c99b0d2b790d4cb3bcba2610294c303
             updatePOV()
         }
     }
