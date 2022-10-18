@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\World;
+
 class HomeController extends Controller
 {
     public function index(){
