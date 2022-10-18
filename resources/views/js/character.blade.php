@@ -42,8 +42,39 @@
     var blockWidth = {{ Block::getVar('width') }}
     var blockHeight = {{ Block::getVar('height') }}
 
-    var charWidth = {{ User::getVar('width') }}
-    var charHeight = {{ User::getVar('height') }}
+        $("#imagechar").click(function(){
+            $.ajax({
+                type:"POST",
+                url: "{{ route('worlds.update') }}",
+                data: {
+                    _token : "{{ csrf_token() }}",
+                    html : $("#save").html()
+                },
+                success: function(result){
+                    console.log(result);
+                }});
+        });
+
+        //checks block type under char
+        function checkBlock()
+        {
+            var charPosX = objImage.getAttribute("data-grid-position-x");
+            var charPosY = objImage.getAttribute("data-grid-position-y");
+            var blockPosX = charPosX;
+            var blockPosY = (charPosY - 1);
+            var block;
+
+            var yElements = document.querySelectorAll('[data-grid-position-x="'+blockPosX+'"]');
+            yElements.forEach(element => {
+                if(element.getAttribute("data-grid-position-y") == blockPosY)
+                {
+                    block = element.getAttribute("data-block");
+                    if(block == "air"){
+                        moveDown();
+                    }
+                }
+            });
+        }
 
     var worldPositiveY = {{ World::getVar('positiveY') }}
     var worldNegativeY = {{ World::getVar('negativeY') }}
@@ -93,6 +124,8 @@
                 if (block == "air") {
                     moveDown();
                 }
+                objImage.setAttribute("data-grid-position-x", charPosX);
+                checkBlock();
             }
         });
     }
@@ -103,14 +136,26 @@
             var charPosX = objImage.getAttribute("data-grid-position-x");
             charPosX = (charPosX - 1);
 
-            objImage.setAttribute("data-grid-position-x", charPosX);
-        }
+                objImage.setAttribute("data-grid-position-x", charPosX);
+                checkBlock();
+            }
 
         if (dir == "R") {
             var charPosX = objImage.getAttribute("data-grid-position-x");
             charPosX++;
 
-            objImage.setAttribute("data-grid-position-x", charPosX);
+                objImage.setAttribute("data-grid-position-y", charPosY);
+                checkBlock();
+            }
+
+            if(dir == "U")
+            {
+                var charPosY = objImage.getAttribute("data-grid-position-y");
+                charPosY++;
+                charPosY++;
+
+                objImage.setAttribute("data-grid-position-y", charPosY);
+            }
         }
 
         if (dir == "D") {
@@ -127,7 +172,19 @@
         if ((objImage.getAttribute("data-grid-position-x") - 1) != 0) {
             changePos("L");
 
+<<<<<<< HEAD
             objImage.style.left = parseInt(objImage.style.left) - blockWidth + "px";
+=======
+        //lets the char jump 2 block high
+        function moveUp() {
+            objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
+            changePos("U");
+
+            sleep(300).then(() => {
+                // objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px";
+                checkBlock();
+            });
+>>>>>>> 971f96f03c99b0d2b790d4cb3bcba2610294c303
             updatePOV()
         }
     }
