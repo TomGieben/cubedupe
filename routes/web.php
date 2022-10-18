@@ -23,6 +23,7 @@ Auth::Routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/game', [WorldController::class, 'index'])->name('game');
+    Route::post('/worlds/item', [WorldController::class, 'item'])->name('worlds.item');
     Route::post('/worlds/update', [WorldController::class, 'update'])->name('worlds.update');
     Route::post('/worlds/store', [WorldController::class, 'store'])->name('worlds.store');
 });
