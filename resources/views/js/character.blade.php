@@ -90,7 +90,6 @@ use App\Models\World;
                 if(element.getAttribute("data-grid-position-y") == blockPosY)
                 {
                     block = element.getAttribute("data-block");
-
                     if(block == "air"){
                         moveDown();
                     }
@@ -107,6 +106,7 @@ use App\Models\World;
                 charPosX = (charPosX - 1);
 
                 objImage.setAttribute("data-grid-position-x", charPosX);
+                checkBlock();
             }
 
             if(dir == "R")
@@ -115,6 +115,7 @@ use App\Models\World;
                 charPosX++;
 
                 objImage.setAttribute("data-grid-position-x", charPosX);
+                checkBlock();
             }
 
             if(dir == "D")
@@ -123,8 +124,17 @@ use App\Models\World;
                 charPosY = (charPosY - 1);
 
                 objImage.setAttribute("data-grid-position-y", charPosY);
+                checkBlock();
             }
-            checkBlock();
+
+            if(dir == "U")
+            {
+                var charPosY = objImage.getAttribute("data-grid-position-y");
+                charPosY++;
+                charPosY++;
+
+                objImage.setAttribute("data-grid-position-y", charPosY);
+            }
         }
 
         //moves char to the left
@@ -140,7 +150,12 @@ use App\Models\World;
         //lets the char jump 2 block high
         function moveUp() {
             objImage.style.top = parseInt(objImage.style.top) - (blockHeight * 2) + "px";
-            sleep(300).then(() => { objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px"; });
+            changePos("U");
+
+            sleep(300).then(() => { 
+                // objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px"; 
+                checkBlock();
+            });
             updatePOV()
         }
 
