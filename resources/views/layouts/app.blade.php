@@ -10,17 +10,29 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}"></script>
+
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;1,100;1,300;1,700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+
+<style>
+    *{
+        font-family: 'Roboto Mono', monospace;
+    }
+</style>
+
+<body id="body" style="overflow-y: hidden; overflow-x: hidden;">
     <div id="app">
+        @if (Route::is('home', 'welcome'))
+
+        @else
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -74,8 +86,8 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        @endif
+        <main>
             @yield('content')
         </main>
     </div>

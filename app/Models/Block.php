@@ -18,8 +18,9 @@ class Block extends Model
         'hp',
     ];
 
-    private int $width = 20;
-    private int $height = 20;
+    private int $width = 40;
+    private int $height = 40;
+    private int $zIndex = 1;
     private string $unit = 'px';
     private string $defaultColor = '#EDEDED';
     private bool $showTextures = false;
@@ -32,6 +33,7 @@ class Block extends Model
             $this->addStyle('float', 'left');
         //
 
+        $this->addStyle('z-index', $this->zIndex);
         $this->addStyle('width', $this->width, $this->unit);
         $this->addStyle('height', $this->height, $this->unit);
         $this->addStyle('background-color', $this->color ?? $this->defaultColor);
@@ -98,6 +100,7 @@ class Block extends Model
         $attributes = '
             data-grid-position-y="'. $y .'"
             data-grid-position-x="'. $x .'"
+            onclick="breakBlock(this);"
         >';
 
         $html = preg_replace('/(<div\b[^><]*)>/i', '$1 '. $attributes .'', $html);

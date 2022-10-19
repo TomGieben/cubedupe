@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class World extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -25,15 +26,21 @@ class World extends Model
     public function render(): HtmlString {
         return new HtmlString($this->html);
     }
+    
+    public static function getVar(string $var) {
+        $world = new World();
+    
+        return $world->$var;
+    }
 
-    public static function new(): World {
+    public static function new(array $attributes = []): World {
         $html = self::empty();
 
         $world = new World();
 
         $world->user_id = auth()->user()->id ?? 1;
-        $world->name = 'New world';
-        $world->slug = Str::slug($world->name);
+        $world->name = $attributes['name'];
+        $world->slug = Str::slug($attributes['name']);
         $world->html = $html;
         $world->save();
 
@@ -46,6 +53,8 @@ class World extends Model
         $blocks = $world->getAllBlocks();
 
         $html = '<div id="container" style="width:' . $containerWidth . 'px;">';
+
+        $html .= auth()->user()->renderCharacter();
 
             //positive
             for ($row=0; $row <= $world->positiveY; $row++) {
