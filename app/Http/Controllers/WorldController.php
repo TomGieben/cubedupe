@@ -42,6 +42,12 @@ class WorldController extends Controller
         return redirect()->route('game');
     }
 
+    public function destroy(World $world) {
+        $world->delete();
+
+        return redirect()->route('home');
+    }
+    
     public function item(Request $request) {
         $item = Item::select('id')->where('slug', $request->item)->first();
         $block = Block::select('id')->where('slug', $request->block)->first();
