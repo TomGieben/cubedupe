@@ -100,7 +100,7 @@ class Block extends Model
         $attributes = '
             data-grid-position-y="'. $y .'"
             data-grid-position-x="'. $x .'"
-            onclick="breakBlock(this);"
+            onclick="changeBlock(this);"
         >';
 
         $html = preg_replace('/(<div\b[^><]*)>/i', '$1 '. $attributes .'', $html);

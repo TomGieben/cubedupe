@@ -8,7 +8,7 @@ use App\Models\World;
 <script>
         objImage = document.getElementById("imagechar");
 
-    function breakBlock(block) {
+    function changeBlock(block) {
         var dev = ("{{ config('app.dev') }}" ? true : false);
         var reachChar = {{ User::getVar('reach') }};
         var charPosY = objImage.getAttribute("data-grid-position-y");
@@ -17,7 +17,8 @@ use App\Models\World;
         var posY = block.getAttribute("data-grid-position-y")
         var posX = block.getAttribute("data-grid-position-x")
 
-        if(Math.abs((posX - charPosX)) <= reachChar){
+        if(Math.abs((posX - charPosX)) <= reachChar) {
+            //destroys the block u are clicking and changing it to air
             if(block.getAttribute("data-block") != "air") {
 
                 $.ajax({
@@ -41,7 +42,7 @@ use App\Models\World;
                 }});
 
                 sleep(180).then(() => { 
-                    if(block.getAttribute("data-hp") <= 0){
+                    if(block.getAttribute("data-hp") <= 0) {
                         block.setAttribute("data-block", "air");
                         block.setAttribute("data-damage", "0");
                         if(block.getAttribute("data-grid-position-y") > -1) {
@@ -52,6 +53,14 @@ use App\Models\World;
                         checkBlock();
                     }
                 });
+            }
+
+            //places a block if its an air block
+            if(block.getAttribute("data-block") == "air") {
+                        block.setAttribute("data-block", "wood");
+                        block.setAttribute("data-damage", "0");
+                        block.setAttribute("data-hp", "50");
+                        block.style.backgroundColor = "#7c4307";
             }
         }
     }
