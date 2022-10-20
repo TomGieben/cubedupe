@@ -11,6 +11,7 @@
     objImage = document.getElementById("imagechar");
 
     var lastTimeS = 0;
+    var spacebar = false;
 
     //checks if a button is pressed
     function check(e) {
@@ -32,6 +33,7 @@
                 } else {
                     lastTimeS = nowS;
                 }
+                spacebar = true;
                 moveUp();
                 break;
         }
@@ -103,7 +105,9 @@
             charPosX = (charPosX - 1);
 
             objImage.setAttribute("data-grid-position-x", charPosX);
-            checkBlock();
+            if(!spacebar) {
+                checkBlock();
+            }
         }
 
         if (dir == "R") {
@@ -111,7 +115,9 @@
             charPosX++;
 
             objImage.setAttribute("data-grid-position-x", charPosX);
-            checkBlock();
+            if(!spacebar) {
+                checkBlock();
+            }
         }
 
         if (dir == "D") {
@@ -119,7 +125,9 @@
             charPosY = (charPosY - 1);
 
             objImage.setAttribute("data-grid-position-y", charPosY);
-            checkBlock();
+            if(!spacebar) {
+                checkBlock();
+            }
         }
 
         if (dir == "U") {
@@ -148,6 +156,7 @@
 
         sleep(300).then(() => {
             // objImage.style.top = parseInt(objImage.style.top) + (blockHeight * 2) + "px";
+            spacebar = false;
             checkBlock();
         });
         updatePOV()
